@@ -10,3 +10,4 @@ Key things left to do:
 4. Create and add more custom sprites
 5. Have an NPC "The Guide" (only interactable NPC)
 6. GUI upon screen start
+7. Add a visual health bar
