@@ -379,7 +379,7 @@ MonoBehaviour:
   whatIsEnemies:
     serializedVersion: 2
     m_Bits: 512
-  damage: 6
+  damage: 26
 --- !u!1001 &1210840546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1011,7 +1011,7 @@ PrefabInstance:
     - target: {fileID: 612623580659580621, guid: 01f923f098ec0b2468884af88a439879,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.51
+      value: -14.87
       objectReference: {fileID: 0}
     - target: {fileID: 612623580659580621, guid: 01f923f098ec0b2468884af88a439879,
         type: 3}
