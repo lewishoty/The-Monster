@@ -8,3 +8,5 @@ Key things left to do:
 2. Fix camera position so it doesnt go out of screen
 3. Add sound effects
 4. Create and add more custom sprites
+5. Have an NPC "The Guide" (only interactable NPC)
+6. GUI upon screen start
