@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     private void InputManager()
     {
         //unity default input for horizontal movement
-        float hDirection = Input.GetAxis("Horizontal");
+        float hDirection = Input.GetAxisRaw("Horizontal");
 
         
 
