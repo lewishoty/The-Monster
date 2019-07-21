@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI;
 public class EnemyController : MonoBehaviour
 {
-    private int health = 100;
+    
     public float speed;
     public GameObject bloodeffect;
     private Animator anim;
@@ -18,6 +18,10 @@ public class EnemyController : MonoBehaviour
 
     private bool facingLeft = true;
 
+    //slider health
+    public Slider healthbar;
+    private int health = 100;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +29,7 @@ public class EnemyController : MonoBehaviour
         coll = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
 
-
+        healthbar.maxValue = health;
     }
 
 
@@ -48,6 +52,7 @@ public class EnemyController : MonoBehaviour
             anim.SetBool("falling", false);
         }
 
+        healthbar.value = health;
     }
 
     private void checkhealth()
@@ -115,7 +120,6 @@ public class EnemyController : MonoBehaviour
     {
 
         health -= damage;
-        Debug.Log("damage taken");
         Instantiate(bloodeffect, transform.position, Quaternion.identity);
     }
 

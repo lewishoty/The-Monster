@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,12 +24,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float timeBtwnDash;
     [SerializeField] private float startTimeBtwnDash;
 
+    //slider health
+    public Slider healthbar;
+    [SerializeField] private float maxhealth  = 100f;
+    private float health;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider2D>();
+        jumptimecounter = jumptime;
+        health = maxhealth;
+        healthbar.maxValue = maxhealth;
     }
 
     private void Update()
@@ -39,21 +47,33 @@ public class PlayerController : MonoBehaviour
         }
         velocitystate();
         anim.SetInteger("state", (int)state);
+        healthbar.value = health;
+
     }
 
+    //collectible
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "collectable")
         {
             Destroy(collision.gameObject);
-            //currenthealth += 15; or smth later
+            if(health >= maxhealth - 10)
+            {
+                health = 100;
+            }
+            else
+            {
+                health += 10;
+            }
         }
     }
 
+    //touch frog
     private void OnCollisionEnter2D(Collision2D frog)
     {
         if (frog.gameObject.tag == "enemy")
         {
+            health -= 10;
             state = State.hurt;
             if (frog.gameObject.transform.position.x > transform.position.x)
             {
