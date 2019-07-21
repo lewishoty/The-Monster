@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -27,7 +25,7 @@ public class EnemyController : MonoBehaviour
         coll = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
 
-        
+
     }
 
 
@@ -38,14 +36,14 @@ public class EnemyController : MonoBehaviour
         checkhealth();
         if (anim.GetBool("jumping"))
         {
-            if(rb.velocity.y < .1)
+            if (rb.velocity.y < .1)
             {
                 anim.SetBool("falling", true);
                 anim.SetBool("jumping", false);
             }
         }
 
-        if(coll.IsTouchingLayers(ground) && anim.GetBool("falling"))
+        if (coll.IsTouchingLayers(ground) && anim.GetBool("falling"))
         {
             anim.SetBool("falling", false);
         }
@@ -66,10 +64,10 @@ public class EnemyController : MonoBehaviour
         if (facingLeft)
         {
             //test if past leftcap
-            if(transform.position.x > leftCap)
+            if (transform.position.x > leftCap)
             {
                 //make sprite face to the right 
-                if(transform.localScale.x != 1)
+                if (transform.localScale.x != 1)
                 {
                     transform.localScale = new Vector3(1, 1);
                 }
@@ -107,19 +105,20 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                facingLeft = true; 
+                facingLeft = true;
             }
         }
 
     }
 
-    public void TakeDamage(int damage) {
-       
+    public void TakeDamage(int damage)
+    {
+
         health -= damage;
         Debug.Log("damage taken");
         Instantiate(bloodeffect, transform.position, Quaternion.identity);
-}
-        
+    }
+
     public void deathanimation()
     {
         anim.SetTrigger("death");

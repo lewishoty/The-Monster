@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,15 +10,19 @@ public class PlayerController : MonoBehaviour
 
     private enum State { idle, running, jump, fall, hurt, attacking }
     private State state = State.idle;
-    
-    [SerializeField] private LayerMask ground;
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float jumpforce = 12f;
-    private int jumpcount = 0;
-    
 
-    private float timeBtwnDash;
-    public float startTimeBtwnDash = 0;
+    //jump variables
+    [SerializeField] private LayerMask ground;
+    [SerializeField] private float speed;
+    [SerializeField] private float jumpforce;
+    [SerializeField] private float jumptime;
+    private float jumptimecounter;
+    private int jumpcount = 0;
+
+    //dash variables
+    [SerializeField] private float timeBtwnDash;
+    [SerializeField] private float startTimeBtwnDash;
+
 
     private void Start()
     {
@@ -31,43 +33,43 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (state != State.hurt) { 
-        InputManager();
-    }
+        if (state != State.hurt)
+        {
+            InputManager();
+        }
         velocitystate();
         anim.SetInteger("state", (int)state);
-
-        
     }
-    private void OnTriggerEnter2D(Collider2D collision) {
 
-        if (collision.tag == "collectable") {
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "collectable")
+        {
             Destroy(collision.gameObject);
             //currenthealth += 15; or smth later
         }
-
     }
 
-        private void OnCollisionEnter2D(Collision2D frog) {
-            if (frog.gameObject.tag == "enemy") {
-
-                state = State.hurt;
-                if (frog.gameObject.transform.position.x > transform.position.x) {
-                    rb.velocity = new Vector2(-15f, rb.velocity.y);
-                }
-                else {
-                    rb.velocity = new Vector2(15f, rb.velocity.y);
-                }
+    private void OnCollisionEnter2D(Collision2D frog)
+    {
+        if (frog.gameObject.tag == "enemy")
+        {
+            state = State.hurt;
+            if (frog.gameObject.transform.position.x > transform.position.x)
+            {
+                rb.velocity = new Vector2(-15f, rb.velocity.y);
             }
-
+            else
+            {
+                rb.velocity = new Vector2(15f, rb.velocity.y);
+            }
         }
+    }
 
     private void InputManager()
     {
         //unity default input for horizontal movement
         float hDirection = Input.GetAxisRaw("Horizontal");
-
-        
 
         if (hDirection < 0)
         {
@@ -84,41 +86,51 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector2(1, 1);
 
         }
-        else { }
+        else {}
+
+        //jump
         if (coll.IsTouchingLayers(ground))
         {
             jumpcount = 0;
         }
-        if (Input.GetButtonDown("Jump") && jumpcount <= 1)
+
+        if (Input.GetButton("Jump"))
         {
-            
-            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
             state = State.jump;
-            jumpcount ++;
+
+            if (jumptimecounter > 0 && jumpcount <= 1)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpforce);
+                jumptimecounter -= Time.deltaTime;
+            }
         }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            jumpcount++;
+            jumptimecounter = jumptime;
+        }
+
         //attacking
-        if (Input.GetKey(KeyCode.K)) {
+        if (Input.GetButton("Attack"))
+        {
             state = State.attacking;
         }
 
         //dashing
         if (timeBtwnDash <= 0)
         {
-            if (Input.GetKey(KeyCode.J))
+            if (Input.GetButton("Dash"))
             {
                 Instantiate(bloodeffect, transform.position, Quaternion.identity);
                 if (transform.localScale.x == 1)
                 {
                     transform.localPosition = new Vector2(transform.localPosition.x + 2, transform.localPosition.y);
-                    
                 }
                 else
                 {
                     transform.localPosition = new Vector2(transform.localPosition.x - 2, transform.localPosition.y);
-                   
                 }
-
-
                 timeBtwnDash = startTimeBtwnDash;
             }
         }
@@ -126,10 +138,10 @@ public class PlayerController : MonoBehaviour
         {
             timeBtwnDash -= Time.deltaTime;
         }
-
     }
 
-    private void velocitystate() {
+    private void velocitystate()
+    {
         if (state == State.jump)
         {
             if (rb.velocity.y < 0.1f)
@@ -155,9 +167,10 @@ public class PlayerController : MonoBehaviour
 
         else if (state == State.attacking)
         {
-            if (Input.GetKeyUp(KeyCode.K)) { 
-            state = State.idle;
-        }
+            if (Input.GetButtonUp("Attack"))
+            {
+                state = State.idle;
+            }
         }
 
         else if (Mathf.Abs(rb.velocity.x) > 2f)
@@ -166,7 +179,6 @@ public class PlayerController : MonoBehaviour
             state = State.running;
         }
         else { state = State.idle; }
-        
     }
 
 

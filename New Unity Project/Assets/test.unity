@@ -202,7 +202,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &179348636
 MonoBehaviour:
@@ -1192,7 +1192,7 @@ PrefabInstance:
     - target: {fileID: 612623580659580621, guid: 01f923f098ec0b2468884af88a439879,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 612623580659580621, guid: 01f923f098ec0b2468884af88a439879,
         type: 3}
@@ -1261,7 +1261,7 @@ PrefabInstance:
     - target: {fileID: 2044062500130685358, guid: 7f62c3b769f953b489d9631850d99b1c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2044062500130685358, guid: 7f62c3b769f953b489d9631850d99b1c,
         type: 3}
@@ -1303,6 +1303,11 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 0.7909107
       objectReference: {fileID: 0}
+    - target: {fileID: 2044062500130685357, guid: 7f62c3b769f953b489d9631850d99b1c,
+        type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2044062500130685356, guid: 7f62c3b769f953b489d9631850d99b1c,
         type: 3}
       propertyPath: m_AngularDrag
@@ -1322,6 +1327,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_GravityScale
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2044062500130685356, guid: 7f62c3b769f953b489d9631850d99b1c,
+        type: 3}
+      propertyPath: m_Mass
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2044062500130685344, guid: 7f62c3b769f953b489d9631850d99b1c,
         type: 3}
@@ -1352,12 +1362,17 @@ PrefabInstance:
     - target: {fileID: 2044062500130685345, guid: 7f62c3b769f953b489d9631850d99b1c,
         type: 3}
       propertyPath: speed
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2044062500130685345, guid: 7f62c3b769f953b489d9631850d99b1c,
         type: 3}
       propertyPath: jumpforce
-      value: 35
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2044062500130685345, guid: 7f62c3b769f953b489d9631850d99b1c,
+        type: 3}
+      propertyPath: jumptime
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f62c3b769f953b489d9631850d99b1c, type: 3}
