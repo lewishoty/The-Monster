@@ -126,6 +126,8 @@ public class EnemyController : MonoBehaviour
     public void deathanimation()
     {
         anim.SetTrigger("death");
+        //stop moving on death
+        rb.velocity = new Vector2(0, 0);
     }
     public void death()
     {
